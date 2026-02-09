@@ -1,0 +1,5 @@
+# Build artifacts
+*.tsbuildinfo
+lib/
+esm/
+cjs/

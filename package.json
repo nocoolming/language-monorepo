@@ -1,0 +1,17 @@
+{
+  "name": "language-learning-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:student": "pnpm --filter mobile-student start",
+    "dev:staff": "pnpm --filter mobile-staff start",
+    "dev:admin": "pnpm --filter web-admin dev",
+    "build": "pnpm -r run build",
+    "lint": "pnpm -r run lint",
+    "clean": "pnpm -r exec rm -rf node_modules dist .expo"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  }
+}
