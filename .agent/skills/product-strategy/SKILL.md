@@ -54,13 +54,31 @@ description: Core product documentation defining the app's background, goals, fe
 
 ---
 
+---
+
 ## 4. Local Low-Cost Technical Solution / 本地低成本技术方案
 
-### 4.1 Architecture: The "Zero Cost" Stack / 架构：“零成本”栈
+### 4.1 LLM Selection (Phase 1 Strategy) / LLM 选型（第一期策略）
+*   **Goal:** Multi-model redundancy to ensure "Zero Cost" & "Global Stability".
+    (目标：多模型冗余，确保“零成本”和“全球稳定性”。)
+
+| Model (模型) | Role (角色) | Cost (1M Input/Output) | Why Selected? (入选理由) |
+| :--- | :--- | :--- | :--- |
+| **Qwen 2.5 Turbo** | **Primary (首选)** | **$0.05** / $0.20 | **Best Balance.** Extremely cheap & smart. The main workhorse. |
+| **Gemini 1.5 Flash**| **Backup (备选)** | $0.075 / $0.30 | **Stability.** Google's infrastructure is globally reliable. |
+| **GPT-4o mini** | **Baseline (保底)** | $0.15 / $0.60 | **Benchmark.** Only used if others fail. The "Standard". |
+| **GLM-4 (Flash/Air)**| **Alternative (候补)**| ~$0.01 - $0.07 | **Extreme Low Cost.** If Qwen has regional issues, switch to Zhipu. |
+
+*   **Implementation Strategy:**
+    1.  App tries **Qwen 2.5 Turbo** first.
+    2.  If error/slow -> Switch to **Gemini 1.5 Flash**.
+    3.  If both fail -> Switch to **GPT-4o mini**.
+
+### 4.2 Architecture: The "Zero Cost" Stack / 架构：“零成本”栈
 
 | Component (组件) | Tool Selection (工具选型) | Why? (原因) | Cost (成本) |
 | :--- | :--- | :--- | :--- |
-| **Brain** (Logic) | **GPT-4o mini** (API) | Smart enough for roleplay, incredibly cheap text generation. | <$0.01/session |
+| **Brain** (Logic) | **Qwen 2.5 Turbo** (Primary) <br> **Gemini 1.5 Flash** (Backup) | Smart enough for roleplay, incredibly cheap text generation. | <$0.01/session |
 | **Hearing** (Input) | **`whisper.rn`** (Local) | Runs OpenAI Whisper natively on iOS/Android. Zero latency. | **$0.00** |
 | **Speaking** (Output)| **Edge TTS** (Online Free) <br> **Piper** (Offline) | Edge TTS has "Human-like" quality. Piper is true offline fallback. | **$0.00** |
 | **Judging** (Score) | **Local Text Match** | Check if STT output matches target phrase keywords. | **$0.00** |
