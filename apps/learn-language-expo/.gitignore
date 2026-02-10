@@ -1,0 +1,15 @@
+# Expo
+.expo/
+web-build/
+
+# Native Builds
+android/
+ios/
+*.jks
+*.keystore
+*.apk
+*.aab
+
+# Metro
+metro-bundler-store/
+node_modules

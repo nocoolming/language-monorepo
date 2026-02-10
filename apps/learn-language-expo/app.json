@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "mobile-student",
+    "slug": "mobile-student",
+    "scheme": "mobile-student",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "com.langlearn.student"
+    },
+    "ios": {
+      "bundleIdentifier": "com.langlearn.student"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
