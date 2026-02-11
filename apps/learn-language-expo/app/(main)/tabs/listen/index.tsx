@@ -24,8 +24,7 @@ export default function ListenScreen() {
                 <View style={styles.footer}>
                     <View style={[styles.badge, styles[item.level]]}>
                         <Text style={styles.badgeText}>{item.level}</Text>
-                    </View>
-                    <Link href={`/(main)/article/${item.id}`} asChild>
+                    </View><Link href={`/(main)/tabs/listen/article/${item.id}`} asChild>
                         <Pressable style={styles.playButton}>
                             <Text style={styles.playText}>▶ Click to Read/Play</Text>
                         </Pressable>

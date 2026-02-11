@@ -8,7 +8,7 @@ export default function CommunityScreen() {
     const [activeTab, setActiveTab] = useState<'recommend' | 'follow'>('recommend');
 
     const renderItem = ({ item }: { item: CommunityPost }) => (
-        <Link href={`/(main)/post/${item.id}`} asChild>
+        <Link href={`/(main)/tabs/community/post/${item.id}`} asChild>
             <Pressable style={styles.card}>
                 <View style={styles.header}>
                     <View style={styles.avatar}>
