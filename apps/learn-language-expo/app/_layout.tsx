@@ -1,8 +1,8 @@
 import { Slot, Redirect, useSegments } from 'expo-router';
-import { useAuthStore } from '../store';
+import { useUserStore } from '../src/store/userStore';
 
 export default function RootLayout() {
-    const { isAuthenticated } = useAuthStore();
+    const { isAuthenticated } = useUserStore();
     const segments = useSegments();
     const inAuthGroup = segments[0] === '(auth)';
 

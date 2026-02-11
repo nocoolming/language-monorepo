@@ -11,26 +11,35 @@ export default function TabsLayout() {
             }}
         >
             <Tabs.Screen
+                name="listen"
+                options={{
+                    title: '听力',
+                    tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 18 }}>🎧</Text>,
+                }}
+            />
+            <Tabs.Screen
+                name="speak"
+                options={{
+                    title: '口语',
+                    tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 18 }}>🎙️</Text>,
+                }}
+            />
+            <Tabs.Screen
+                name="community"
+                options={{
+                    title: '社区',
+                    tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 18 }}>👥</Text>,
+                }}
+            />
+            <Tabs.Screen
                 name="index"
                 options={{
-                    title: '首页',
-                    tabBarIcon: ({ color }) => <Text style={{ color }}>🏠</Text>,
+                    title: 'Home',
+                    tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 18 }}>🏠</Text>,
                 }}
             />
-            <Tabs.Screen
-                name="explore"
-                options={{
-                    title: 'explore',
-                    tabBarIcon: ({ color }) => <Text style={{ color }}>🔍</Text>,
-                }}
-            />
-            <Tabs.Screen
-                name="profile"
-                options={{
-                    title: 'Profile',
-                    tabBarIcon: ({ color }) => <Text style={{ color }}>🔍</Text>,
-                }}
-            />
+            <Tabs.Screen name="explore" options={{ href: null }} />
+            <Tabs.Screen name="profile" options={{ href: null }} />
         </Tabs>
     );
 }

@@ -1,24 +1,33 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Link } from 'expo-router';
-import { useAuthStore } from '../../store';
+import { useUserStore } from '../../src/store/userStore';
 
 export default function LoginScreen() {
-    const { setAuthenticated } = useAuthStore();
+    const { login } = useUserStore();
 
     const handleLogin = () => {
-        setAuthenticated(true);
+        // Mock login
+        login({
+            id: 'mock_user',
+            name: 'Demo User',
+            ageGroup: '26-35',
+            nativeLanguage: 'zh-CN',
+            targetLanguage: 'en-US',
+            level: 'Intermediate',
+            stats: { wordsSpoken: 0, listeningHours: 0, scenariosCompleted: 0, socialBattery: 80 }
+        });
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>登录页面</Text>
+            <Text style={styles.title}>登录</Text>
 
             <Pressable style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>模拟登录</Text>
             </Pressable>
 
             <View style={styles.links}>
-                <Link href="/(auth)/sign-up">
+                <Link href="/(auth)/sign-on">
                     <Text style={styles.link}>没有账号？去注册</Text>
                 </Link>
                 <Link href="/(auth)/forgot-password">

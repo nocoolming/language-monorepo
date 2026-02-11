@@ -1,24 +1,49 @@
 import { Drawer } from 'expo-router/drawer';
-import { useAuthStore } from '../../store';
-// 修正这里：从 @react-navigation/drawer 导入内容组件
+import { useUserStore } from '../../src/store/userStore';
 import {
     DrawerContentScrollView,
     DrawerItemList,
     DrawerItem
 } from '@react-navigation/drawer';
-
+import { View, Text, Pressable } from 'react-native';
+// 自定义侧边栏内容组件
 // 自定义侧边栏内容组件
 function CustomDrawerContent(props: any) {
-    const logout = useAuthStore((state) => state.logout); // 假设你的 store 有 logout 方法
+    const { user, logout } = useUserStore();
 
     return (
         <DrawerContentScrollView {...props}>
+            {/* Profile Header in Drawer */}
+            <Pressable
+                onPress={() => props.navigation.navigate('profile')}
+                style={({ pressed }) => ({
+                    padding: 20,
+                    paddingBottom: 10,
+                    paddingLeft: 20,
+                    marginBottom: 10,
+                    borderBottomWidth: 1,
+                    borderBottomColor: '#eee',
+                    opacity: pressed ? 0.7 : 1,
+                    backgroundColor: pressed ? '#f5f5f5' : 'transparent'
+                })}
+            >
+                <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#007AFF', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+                    <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold' }}>{user?.name?.[0] || 'U'}</Text>
+                </View>
+                <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#333' }}>{user?.name || 'Guest'}</Text>
+                <Text style={{ fontSize: 14, color: '#666' }}>View Profile</Text>
+            </Pressable>
+
+
+
             {/* 渲染下面定义的 Drawer.Screen 列表 */}
+            {/* The items (tabs, profile, change-password) are hidden via their 'options' below, not filtered here */}
+            {/* 这些项目（tabs, profile, change-password）通过下面的 'options' 隐藏，而不是在这里过滤 */}
             <DrawerItemList {...props} />
 
             {/* 退出登录按钮 */}
             <DrawerItem
-                label="退出登录"
+                label="Sign Out / 退出登录"
                 labelStyle={{ color: 'red' }}
                 onPress={() => {
                     logout();
@@ -32,35 +57,45 @@ function CustomDrawerContent(props: any) {
 export default function MainLayout() {
     return (
         <Drawer drawerContent={(props) => <CustomDrawerContent {...props} />}>
-            {/* 必须叫 "tabs"，因为它要匹配同级目录下的 tabs 文件夹 */}
+
+            {/* <Drawer> */}
             <Drawer.Screen
-                name="tabs"
+                name="profile"
                 options={{
-                    drawerLabel: '主页',
-                    title: 'App',
-                    drawerItemStyle: { display: 'none' }, // 彻底从侧边栏列表中移除占位
-                    headerShown: false, // 隐藏 Drawer 的顶栏，让 Tabs 的顶栏显示
-                }}
-            />
-            {/* 新增的页面 1：设置 */}
-            <Drawer.Screen
-                name="change-password" // 对应 app/(main)/settings.tsx
-                options={{
-                    drawerLabel: 'ChangePassword',
-                    title: 'ChangePassword',
-                    headerShown: true, // 独立页面建议开启顶栏以便返回
+                    drawerLabel: 'Profile / 个人资料',
+                    title: 'Profile / 个人资料',
+                    headerShown: true,
+                    drawerItemStyle: { display: 'none' } // Hidden because we added a manual item above / 因为上面添加了手动项所以隐藏
                 }}
             />
 
-            {/* 新增的页面 2：关于 */}
-            {/* <Drawer.Screen
-                name="explore" // 对应 app/(main)/about.tsx
+            <Drawer.Screen
+                name="settings"
                 options={{
-                    drawerLabel: 'explore',
-                    title: 'explore',
+                    drawerLabel: 'Settings / 设置',
+                    title: 'Settings / 设置',
                     headerShown: true,
                 }}
-            /> */}
+            />
+
+            <Drawer.Screen
+                name="change-password"
+                options={{
+                    drawerLabel: 'Change Password',
+                    title: 'Change Password',
+                    headerShown: true,
+                    // drawerItemStyle: { display: 'none' } // Hidden / 隐藏
+                }}
+            />
+            <Drawer.Screen
+                name="tabs"
+                options={{
+                    drawerLabel: 'Home',
+                    title: 'Home',
+                    headerShown: false, // <--- 添加这一行
+                    drawerItemStyle: { display: 'none' }
+                }}
+            />
         </Drawer>
     );
 }
