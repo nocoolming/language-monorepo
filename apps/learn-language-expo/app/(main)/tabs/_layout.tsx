@@ -11,6 +11,13 @@ export default function TabsLayout() {
             }}
         >
             <Tabs.Screen
+                name="index"
+                options={{
+                    title: 'Home',
+                    tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 18 }}>🏠</Text>,
+                }}
+            />
+            <Tabs.Screen
                 name="listen"
                 options={{
                     title: '听力',
@@ -31,13 +38,7 @@ export default function TabsLayout() {
                     tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 18 }}>👥</Text>,
                 }}
             />
-            <Tabs.Screen
-                name="index"
-                options={{
-                    title: 'Home',
-                    tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 18 }}>🏠</Text>,
-                }}
-            />
+
             <Tabs.Screen name="explore" options={{ href: null }} />
             <Tabs.Screen name="profile" options={{ href: null }} />
         </Tabs>
