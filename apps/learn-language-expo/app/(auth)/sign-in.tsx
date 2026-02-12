@@ -14,7 +14,16 @@ export default function LoginScreen() {
             nativeLanguage: 'zh-CN',
             targetLanguage: 'en-US',
             level: 'Intermediate',
-            stats: { wordsSpoken: 0, listeningHours: 0, scenariosCompleted: 0, socialBattery: 80 }
+            interests: ['Tech', 'Travel'], // Added interests
+            dailyGoalMinutes: 30,
+            dailyProgress: 12, // Mock initial progress
+            stats: {
+                wordsSpoken: 0,
+                listeningHours: 0,
+                scenariosCompleted: 0,
+                socialBattery: 80,
+                studyHistory: [false, false, false, false, false, false, false]
+            }
         });
     };
 

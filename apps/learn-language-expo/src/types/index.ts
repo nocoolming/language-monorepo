@@ -12,6 +12,7 @@ export interface UserProfile {
     level: UserLevel;
     interests: string[]; // e.g., ['Tech', 'Travel']
     dailyGoalMinutes: number; // e.g., 30
+    dailyProgress: number; // e.g., 10 (Current progress today)
     stats: {
         wordsSpoken: number;
         listeningHours: number;

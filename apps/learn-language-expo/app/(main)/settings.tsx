@@ -27,21 +27,6 @@ export default function SettingsScreen() {
     const [dailyGoal, setDailyGoal] = useState(user?.dailyGoalMinutes || 15);
     const [weeklyGoal, setWeeklyGoal] = useState(5); // Days per week
 
-    // Password State
-    const [newPass, setNewPass] = useState('');
-    const [confirmPass, setConfirmPass] = useState('');
-
-    const handleSavePassword = () => {
-        if (!newPass) return;
-        if (newPass !== confirmPass) {
-            Alert.alert('Error', 'Passwords do not match');
-            return;
-        }
-        Alert.alert('Success', 'Password changed successfully');
-        setNewPass('');
-        setConfirmPass('');
-    };
-
     return (
         <ScrollView style={styles.container}>
             <View style={styles.section}>
@@ -101,29 +86,6 @@ export default function SettingsScreen() {
             </View>
 
             <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Account</Text>
-
-                <Text style={styles.subLabel}>Change Password</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="New Password"
-                    secureTextEntry
-                    value={newPass}
-                    onChangeText={setNewPass}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Confirm Password"
-                    secureTextEntry
-                    value={confirmPass}
-                    onChangeText={setConfirmPass}
-                />
-                <Pressable style={styles.btnSave} onPress={handleSavePassword}>
-                    <Text style={styles.btnSaveText}>Update Password</Text>
-                </Pressable>
-
-                <View style={styles.divider} />
-
                 <Pressable style={styles.btnLogout} onPress={logout}>
                     <Text style={styles.btnLogoutText}>Sign Out</Text>
                 </Pressable>

@@ -11,6 +11,7 @@ interface UserState {
     updateStats: (newStats: Partial<UserProfile['stats']>) => void;
     chargeBattery: (amount: number) => void;
     drainBattery: (amount: number) => void;
+    addProgress: (minutes: number) => void;
 }
 
 export const DEFAULT_USER: UserProfile = {
@@ -22,6 +23,7 @@ export const DEFAULT_USER: UserProfile = {
     level: 'Intermediate',
     interests: ['Tech', 'Travel', 'Food'],
     dailyGoalMinutes: 30,
+    dailyProgress: 0,
     stats: {
         wordsSpoken: 1250,
         listeningHours: 5.5,
@@ -66,6 +68,17 @@ export const useUserStore = create<UserState>((set) => ({
                 user: {
                     ...state.user,
                     stats: { ...state.user.stats, socialBattery: newBattery },
+                },
+            };
+        }),
+
+    addProgress: (minutes) =>
+        set((state) => {
+            if (!state.user) return {};
+            return {
+                user: {
+                    ...state.user,
+                    dailyProgress: state.user.dailyProgress + minutes,
                 },
             };
         }),

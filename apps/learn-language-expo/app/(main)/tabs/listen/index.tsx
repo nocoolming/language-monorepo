@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, FlatList, Image, Pressable } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, Pressable, RefreshControl } from 'react-native';
+import { useState, useCallback } from 'react';
 import { Link } from 'expo-router';
 import { MOCK_NEWS_FEED } from '../../../../src/mock/newsFeed';
 import { NewsItem } from '../../../../src/types';
@@ -8,7 +9,17 @@ export default function ListenScreen() {
     const { user } = useUserStore();
 
     // Mock daily usage
-    const minutesStudied = 20;
+    // const minutesStudied = 20; // Removed hardcoded value
+
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        // Simulate network request
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 1500);
+    }, []);
 
     const renderItem = ({ item }: { item: NewsItem }) => (
         <View style={styles.card}>
@@ -40,9 +51,9 @@ export default function ListenScreen() {
                 <View style={styles.dailyGoalHeader}>
                     <Text style={styles.goalLabel}>Daily Goal / 每日目标</Text>
                     <View style={styles.progressBar}>
-                        <View style={[styles.progressFill, { width: '60%' }]} />
+                        <View style={[styles.progressFill, { width: `${Math.min(100, (user.dailyProgress / user.dailyGoalMinutes) * 100)}%` }]} />
                     </View>
-                    <Text style={styles.goalValue}>{minutesStudied} / {user.dailyGoalMinutes} min</Text>
+                    <Text style={styles.goalValue}>{user.dailyProgress} / {user.dailyGoalMinutes} min</Text>
                 </View>
             )}
 
@@ -51,6 +62,9 @@ export default function ListenScreen() {
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
                 contentContainerStyle={styles.list}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
             />
         </View>
     );
